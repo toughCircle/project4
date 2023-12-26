@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spread_Sheet</title>
+    <script src="/script.js" defer></script>
+    <style>
+      #export_btn {
+        background-color: rgb(69, 137, 69);
+        color: white;
+        border: none;
+        padding: 10px;
+        display: inline-block;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+
+      .cell_row {
+        display: flex;
+      }
+
+      .cell {
+        width: 80px;
+        border: 0.5px solid lightgray;
+        height: 40px;
+        outline: none;
+        box-sizing: border-box;
+      }
+
+      .sell:focus {
+        background-color: #ddd;
+        border: 2px solid rgb(69, 137, 69);
+      }
+
+      .cell.header {
+        background-color: lightgray;
+        text-align: center;
+        border: 0.2px solid rgb(173, 172, 172);
+      }
+
+      .cell.header.active {
+        background-color: darkgreen;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="export_btn">Export Spread Sheet</button>
+    <div>Cell : <span id="cell_status"></span></div>
+    <div class="spreadsheet_container"></div>
+  </body>
+</html>
