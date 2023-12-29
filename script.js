@@ -44,32 +44,21 @@ const initSpreadsheet = () => {
       // disabled 속성 추가
       let disabled = false;
 
-      // 모든 row 첫 column에 숫자 입력
-      if (j == 0) {
-        cellData = i;
-        isHeader = true;
+      // 모든 첫 번째 행과 열에 disabled 속성 추가
+      if (i == 0 || j == 0) {
         disabled = true;
-      }
-
-      // 모든 column 첫 row에 알파벳 입력
-      if (i == 0) {
-        cellData = alphabets[j - 1];
         isHeader = true;
-        disabled = true;
+
+        if (i == 0) {
+          cellData = j > 0 ? alphabets[j - 1] : "";
+        } else {
+          cellData = i;
+        }
       }
 
-      // 첫 row 첫 column은 "";
-      if (!cellData) {
-        cellData = "";
-      }
-
-      // 첫 row의 column은 "";
-      if (cellData <= 0) {
-        cellData = "";
-      }
-
-      const rowName = i;
-      const columnName = alphabets[j - 1];
+      // 0일 경우 undefined 출력하는 부분 수정
+      const rowName = i == 0 ? "" : i;
+      const columnName = j == 0 ? "" : alphabets[j - 1];
 
       const cell = new Cell(
         isHeader,
@@ -103,7 +92,8 @@ class Cell {
     active = false
   ) {
     this.isHeader = isHeader;
-    this.disable = disabled;
+    // disable 오타로 인한 속성 오류 수정
+    this.disabled = disabled;
     this.data = data;
     this.row = row;
     this.column = column;
@@ -159,6 +149,11 @@ const clearHeaderActiveStatus = () => {
 };
 
 const handleCellClick = (cell) => {
+  // 제목 행, 열을 클릭시 아무것도 하지 않음
+  if (cell.isHeader) {
+    return;
+  }
+
   // 클릭 시 하이라이트 지우기 실행
   clearHeaderActiveStatus();
   const columnHeader = spreadsheet[0][cell.column];
